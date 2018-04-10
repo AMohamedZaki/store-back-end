@@ -1,0 +1,10 @@
+E:\Development\store-backend\bin\Debug\netcoreapp2.0\store-backend.deps.json
+E:\Development\store-backend\bin\Debug\netcoreapp2.0\store-backend.runtimeconfig.json
+E:\Development\store-backend\bin\Debug\netcoreapp2.0\store-backend.runtimeconfig.dev.json
+E:\Development\store-backend\bin\Debug\netcoreapp2.0\store-backend.dll
+E:\Development\store-backend\bin\Debug\netcoreapp2.0\store-backend.pdb
+E:\Development\store-backend\obj\Debug\netcoreapp2.0\store-backend.csproj.CoreCompileInputs.cache
+E:\Development\store-backend\obj\Debug\netcoreapp2.0\store-backend.AssemblyInfoInputs.cache
+E:\Development\store-backend\obj\Debug\netcoreapp2.0\store-backend.AssemblyInfo.cs
+E:\Development\store-backend\obj\Debug\netcoreapp2.0\store-backend.dll
+E:\Development\store-backend\obj\Debug\netcoreapp2.0\store-backend.pdb
