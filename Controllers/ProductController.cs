@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Store.Model;
 using Store.dto;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace store_back_end.api
 {
@@ -24,11 +25,32 @@ namespace store_back_end.api
         }
 
         // product/get
-        [HttpGet(Name = "get")]
+        [HttpGet]
         public async Task<IEnumerable<Products>> Get()
         {
-            var data = db.Products.ToList();
-            return await Task.Run(() => data);
+            try
+            {
+                return await Task.Run(() =>
+                 db.Products.Include(item => item.ProductCategories)
+                 .Select(product => new Products {
+                     Name = product.Name ,
+                     Price = product.Price ,
+                     Cost = product.Cost ,
+                     Description = product.Description,
+                     CategoryId = product.CategoryId,
+                     Code = product.Code,
+                     id = product.id ,
+                     ProductCategories = new ProductCategories { 
+                         id = product.ProductCategories.id,
+                         Name = product.ProductCategories.Name
+                     }
+                 })
+                .ToList());
+            }
+            catch (Exception ex) {
+                var x = ex;
+                return null;
+             }
         }
 
         // Product/1
@@ -65,7 +87,7 @@ namespace store_back_end.api
         }
 
         // Product/put/1
-        [HttpPut("{id}",Name = "Put")]
+        [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Productdto productdto)
         {
             try
@@ -73,7 +95,7 @@ namespace store_back_end.api
                 if (productdto == null || id <= 0)
                     return BadRequest();
 
-                var prod = db.Products.Find(id);                    
+                var prod = db.Products.Find(id);
                 var Product = Mapper.Map(productdto, prod);
                 db.SaveChanges();
                 return await Task.Run(() => new ObjectResult(Product));
@@ -85,14 +107,14 @@ namespace store_back_end.api
         }
 
         // Product/Delete/1
-        [HttpDelete("{id}",Name = "Delete")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
             try
             {
                 if (id <= 0)
                     return BadRequest();
-                var prod = db.Products.Find(id);                    
+                var prod = db.Products.Find(id);
                 db.Products.Remove(prod);
                 db.SaveChanges();
                 return await Task.Run(() => new ObjectResult(prod));
