@@ -32,25 +32,28 @@ namespace store_back_end.api
             {
                 return await Task.Run(() =>
                  db.Products.Include(item => item.ProductCategories)
-                 .Select(product => new Products {
-                     Name = product.Name ,
-                     Price = product.Price ,
-                     Cost = product.Cost ,
+                 .Select(product => new Products
+                 {
+                     Name = product.Name,
+                     Price = product.Price,
+                     Cost = product.Cost,
                      Description = product.Description,
                      CategoryId = product.CategoryId,
                      Code = product.Code,
-                     id = product.id ,
-                     ProductCategories = new ProductCategories { 
+                     id = product.id,
+                     ProductCategories = new ProductCategories
+                     {
                          id = product.ProductCategories.id,
                          Name = product.ProductCategories.Name
                      }
                  })
                 .ToList());
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 var x = ex;
                 return null;
-             }
+            }
         }
 
         // Product/1
@@ -123,6 +126,13 @@ namespace store_back_end.api
             {
                 return await Task.Run(() => StatusCode(500));
             }
+        }
+
+        [HttpPost(Name="chackProductName")]
+        public async Task<bool> chackProductName(string prodName)
+        {
+            var productName = db.Products.FirstOrDefault(item => item.Name == prodName).Name;
+            return await Task.Run( () => string.IsNullOrWhiteSpace(productName)) ;
         }
     }
 }
