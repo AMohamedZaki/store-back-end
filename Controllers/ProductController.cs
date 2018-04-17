@@ -97,13 +97,13 @@ namespace store_back_end.api
             {
                 if (productdto == null || id <= 0)
                     return BadRequest();
-
+                productdto.Code = "";
                 var prod = db.Products.Find(id);
-                var Product = Mapper.Map(productdto, prod);
+                var Product = Mapper.Map<Productdto, Products>(productdto, prod);
                 db.SaveChanges();
                 return await Task.Run(() => new ObjectResult(Product));
             }
-            catch
+            catch (Exception ex)
             {
                 return await Task.Run(() => StatusCode(500));
             }
@@ -128,11 +128,12 @@ namespace store_back_end.api
             }
         }
 
-        [HttpPost(Name="chackProductName")]
+        // For Asynchronous Validations
+        [HttpPost(Name = "chackProductName")]
         public async Task<bool> chackProductName(string prodName)
         {
             var productName = db.Products.FirstOrDefault(item => item.Name == prodName).Name;
-            return await Task.Run( () => string.IsNullOrWhiteSpace(productName)) ;
+            return await Task.Run(() => string.IsNullOrWhiteSpace(productName));
         }
     }
 }
