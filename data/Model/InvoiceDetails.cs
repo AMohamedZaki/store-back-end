@@ -1,4 +1,4 @@
-namespace Store.Model { 
+namespace Store.data.Model { 
     public class InvoiceDetails
     {
         public int id { get; set; }

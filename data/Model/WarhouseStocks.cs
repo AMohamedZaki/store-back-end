@@ -1,8 +1,8 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Store.dto { 
-    public class WarhouseStocksdto
+namespace Store.data.Model { 
+    public class WarhouseStocks
     {
         public int WarehouseId { get; set; }
         public int ItemId { get; set; }

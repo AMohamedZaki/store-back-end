@@ -1,10 +1,10 @@
 
 
 using Microsoft.EntityFrameworkCore;
-using Store.Model.EntityConfigration;
+using Store.data.Model.EntityConfigration;
 using System.Collections.Generic;
 
-namespace Store.Model
+namespace Store.data.Model
 {
     public class StoreContext : DbContext
     {
@@ -28,9 +28,6 @@ namespace Store.Model
         protected override void OnModelCreating(ModelBuilder modelBuilder) { 
             modelBuilder.Entity<WarhouseStocks>().HasKey(c => new { c.ItemId, c.WarehouseId});
             modelBuilder.ApplyConfiguration(configuration: new ProductConfiguration());
-                    
-
-
         }
     }
 

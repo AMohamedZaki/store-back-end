@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Store.data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +31,7 @@ namespace store_backend
                                     .AllowAnyHeader()
                                     .AllowAnyOrigin())
             );
+            Mapper.Initialize(item => item.AddProfile<MappingProfile>());
             services.AddMvc();
         }
 

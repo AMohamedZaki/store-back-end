@@ -1,4 +1,4 @@
-namespace Store.Model { 
+namespace Store.data.Model { 
     public class Branches
     {
         public int id { get; set; }

@@ -1,4 +1,5 @@
-namespace Store.Model { 
+namespace Store.data.Model 
+{ 
     public class Products
     {
         public int id { get; set; }

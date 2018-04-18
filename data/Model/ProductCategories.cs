@@ -1,7 +1,7 @@
 
 using System.Collections.Generic;
 
-namespace Store.Model { 
+namespace Store.data.Model { 
     public class ProductCategories
     {
         public int id { get; set; }

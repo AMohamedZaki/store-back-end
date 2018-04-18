@@ -1,7 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-namespace Store.Model.EntityConfigration {
+namespace Store.data.Model.EntityConfigration {
 
     public class ProductConfiguration : IEntityTypeConfiguration<Products>
     {

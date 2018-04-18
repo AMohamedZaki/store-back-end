@@ -2,7 +2,7 @@
 using System;
 using System.Numerics;
 
-namespace Store.Model { 
+namespace Store.data.Model { 
     public class PurchaseInvoices
     {
         public int id { get; set; }

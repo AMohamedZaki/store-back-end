@@ -1,5 +1,5 @@
 
-namespace Store.dto { 
+namespace Store.data.dto { 
     public class Customerdto
     {
         public int id { get; set; }

@@ -1,4 +1,4 @@
-namespace Store.dto 
+namespace Store.data.dto 
 { 
     public class Branchedto
     {

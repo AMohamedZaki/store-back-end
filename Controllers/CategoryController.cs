@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
-using Store.Model;
-using Store.dto;
+using Store.data.Model;
+using Store.data.dto;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 

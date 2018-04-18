@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
-using Store.Model;
-using Store.dto;
+using Store.data.Model;
+using Store.data.dto;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -86,7 +86,7 @@ namespace store_back_end.api
                 db.SaveChanges();
                 return await Task.Run(() => new ObjectResult(customer));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return await Task.Run(() => StatusCode(500));
             }

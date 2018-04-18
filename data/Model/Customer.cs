@@ -1,5 +1,6 @@
-namespace Store.dto { 
-    public class Suppliersdto
+
+namespace Store.data.Model { 
+    public class Customer
     {
         public int id { get; set; }
 

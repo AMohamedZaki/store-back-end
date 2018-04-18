@@ -1,5 +1,5 @@
 
-namespace Store.Model { 
+namespace Store.data.Model { 
     public class PurchInvoiceDetails
     {
         public int id { get; set; }

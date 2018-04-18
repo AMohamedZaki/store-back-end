@@ -1,4 +1,4 @@
-namespace Store.dto { 
+namespace Store.data.dto { 
     public class Productdto
     {
         public int id { get; set; }
@@ -12,5 +12,6 @@ namespace Store.dto {
         public decimal Cost { get; set; }
         public string Description { get; set; }
         public int? CategoryId { get; set; }
+        public ProductCategorydto productCategories { get; set; }
     }
 }
