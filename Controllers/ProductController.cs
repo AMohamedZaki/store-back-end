@@ -81,10 +81,12 @@ namespace store_back_end.api
                 var Product = Mapper.Map(productdto, new Products());
                 db.Products.Add(Product);
                 db.SaveChanges();
-                Product.ProductCategories = db.ProductCategories.FirstOrDefault(cat => cat.id == Product.CategoryId);
-                return await Task.Run(() => new ObjectResult(Product));
+                productdto.productCategories = db.ProductCategories
+                .Select(item => Mapper.Map<ProductCategories,ProductCategorydto>(item))
+                .FirstOrDefault(cat => cat.id == Product.CategoryId);
+                return await Task.Run(() => new ObjectResult(productdto));
             }
-            catch(Exception)
+            catch(Exception ex)
             {
                 return await Task.Run(() => StatusCode(500));
             }
