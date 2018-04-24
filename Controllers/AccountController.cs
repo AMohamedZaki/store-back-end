@@ -51,8 +51,8 @@ namespace store_back_end.api
             }
             throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
         }
-
-
+        
+        [HttpPost]
         public async Task<object> Regiester([FromBody] Regestrationdto regestdto)
         {
             if (regestdto != null)
@@ -62,18 +62,17 @@ namespace store_back_end.api
                     Email = regestdto.Email,
                     UserName = regestdto.userName
                 };
-
                 var userapp = await _userManger.CreateAsync(user, regestdto.Password);
                 if (userapp.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
-                    return await Task.Run(() => GenerateJwtToken(regestdto.Email, user));
+                    return await Task.Run(() => Ok(GenerateJwtToken(regestdto.Email, user)));
                 }
             }
             throw new ApplicationException("UNKNOWN_ERROR");
         }
 
-
+        
         private async Task<object> GenerateJwtToken(string email, IdentityUser user)
         {
             var claims = new List<Claim>

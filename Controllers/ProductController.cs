@@ -86,7 +86,7 @@ namespace store_back_end.api
                 .FirstOrDefault(cat => cat.id == Product.CategoryId);
                 return await Task.Run(() => new ObjectResult(productdto));
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return await Task.Run(() => StatusCode(500));
             }

@@ -12617,11 +12617,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "e:\\Development\\store-backend\\store-backend.csproj",
+      "projectUniqueName": "E:\\Development\\store-backend\\store-backend.csproj",
       "projectName": "store-backend",
-      "projectPath": "e:\\Development\\store-backend\\store-backend.csproj",
+      "projectPath": "E:\\Development\\store-backend\\store-backend.csproj",
       "packagesPath": "C:\\Users\\amohamed\\.nuget\\packages\\",
-      "outputPath": "e:\\Development\\store-backend\\obj\\",
+      "outputPath": "E:\\Development\\store-backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
