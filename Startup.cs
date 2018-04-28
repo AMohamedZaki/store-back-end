@@ -17,7 +17,7 @@ using System.Text;
 
 namespace store_backend
 {
-    public class Startup
+    public class Startup  
     {
         public Startup(IConfiguration configuration)
         {
