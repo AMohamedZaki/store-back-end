@@ -14,6 +14,9 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Store.data.Model;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace store_backend
 {
@@ -31,14 +34,22 @@ namespace store_backend
         {
             services.AddCors(
                 options => options.AddPolicy("AllowAnyOrigin",
-                 builder =>  builder.AllowAnyMethod()
+                 builder => builder.AllowAnyMethod()
                                     .AllowAnyHeader()
                                     .AllowAnyOrigin())
             );
             Mapper.Initialize(item => item.AddProfile<MappingProfile>());
 
+            // ===== DbContext ========
+            var connection = Configuration.GetConnectionString("Storedb");
+            services.AddEntityFrameworkSqlServer().AddDbContext<StoreContext>(opt => opt.UseSqlServer(connection));
 
-                        // ===== Add Jwt Authentication ========
+            // ===== Add Identity ========
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<StoreContext>()
+                .AddDefaultTokenProviders();
+                
+            // ===== Add Jwt Authentication ========
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
             services
                 .AddAuthentication(options =>
@@ -46,7 +57,7 @@ namespace store_backend
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                    
+
                 })
                 .AddJwtBearer(cfg =>
                 {

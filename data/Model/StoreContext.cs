@@ -22,7 +22,7 @@ namespace Store.data.Model
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=StorDB;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=.;Database=StorDB;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) { 
