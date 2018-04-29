@@ -8,3 +8,13 @@ E:\Development\store-backend\obj\Debug\netcoreapp2.0\store-backend.AssemblyInfoI
 E:\Development\store-backend\obj\Debug\netcoreapp2.0\store-backend.AssemblyInfo.cs
 E:\Development\store-backend\obj\Debug\netcoreapp2.0\store-backend.dll
 E:\Development\store-backend\obj\Debug\netcoreapp2.0\store-backend.pdb
+F:\Store\store-backend\store-backend\bin\Debug\netcoreapp2.0\store-backend.deps.json
+F:\Store\store-backend\store-backend\bin\Debug\netcoreapp2.0\store-backend.runtimeconfig.json
+F:\Store\store-backend\store-backend\bin\Debug\netcoreapp2.0\store-backend.runtimeconfig.dev.json
+F:\Store\store-backend\store-backend\bin\Debug\netcoreapp2.0\store-backend.dll
+F:\Store\store-backend\store-backend\bin\Debug\netcoreapp2.0\store-backend.pdb
+F:\Store\store-backend\store-backend\obj\Debug\netcoreapp2.0\store-backend.csproj.CoreCompileInputs.cache
+F:\Store\store-backend\store-backend\obj\Debug\netcoreapp2.0\store-backend.AssemblyInfoInputs.cache
+F:\Store\store-backend\store-backend\obj\Debug\netcoreapp2.0\store-backend.AssemblyInfo.cs
+F:\Store\store-backend\store-backend\obj\Debug\netcoreapp2.0\store-backend.dll
+F:\Store\store-backend\store-backend\obj\Debug\netcoreapp2.0\store-backend.pdb
