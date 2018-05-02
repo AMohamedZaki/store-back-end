@@ -32,6 +32,10 @@ namespace store_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // ===== DbContext ========
+            var connection = Configuration.GetConnectionString("Storedb");
+            services.AddEntityFrameworkSqlServer().AddDbContext<StoreContext>(opt => opt.UseSqlServer(connection));
+          
             services.AddCors(
                 options => options.AddPolicy("AllowAnyOrigin",
                  builder => builder.AllowAnyMethod()
@@ -39,10 +43,6 @@ namespace store_backend
                                     .AllowAnyOrigin())
             );
             Mapper.Initialize(item => item.AddProfile<MappingProfile>());
-
-            // ===== DbContext ========
-            var connection = Configuration.GetConnectionString("Storedb");
-            services.AddEntityFrameworkSqlServer().AddDbContext<StoreContext>(opt => opt.UseSqlServer(connection));
 
             // ===== Add Identity ========
             services.AddIdentity<IdentityUser, IdentityRole>()
