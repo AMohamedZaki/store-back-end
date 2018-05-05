@@ -9,15 +9,10 @@ namespace Store.data
     {
         public MappingProfile()
         {
-            CreateMap<Products, Productdto>();
-            CreateMap<Productdto, Products>();
-
-            CreateMap<ProductCategories, ProductCategorydto>();
-            CreateMap<ProductCategorydto, ProductCategories>();
-
-            CreateMap<Customer, Customerdto>();
-            CreateMap<Customerdto, Customer>();
-
+            CreateMap<Products, supplierdto>().ReverseMap();
+            CreateMap<ProductCategories, ProductCategorydto>().ReverseMap();
+            CreateMap<Customer, Customerdto>().ReverseMap();
+            CreateMap<Suppliers, Suppliersdto>().ReverseMap();
         }
     }
 }

@@ -32,10 +32,11 @@ namespace store_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             // ===== DbContext ========
             var connection = Configuration.GetConnectionString("Storedb");
             services.AddEntityFrameworkSqlServer().AddDbContext<StoreContext>(opt => opt.UseSqlServer(connection));
-          
+            
             services.AddCors(
                 options => options.AddPolicy("AllowAnyOrigin",
                  builder => builder.AllowAnyMethod()
@@ -48,7 +49,7 @@ namespace store_backend
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<StoreContext>()
                 .AddDefaultTokenProviders();
-                
+
             // ===== Add Jwt Authentication ========
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
             services
@@ -77,13 +78,15 @@ namespace store_backend
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, StoreContext dbContext)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCors("AllowAnyOrigin");
             app.UseMvc();
         }

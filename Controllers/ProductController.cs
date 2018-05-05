@@ -18,10 +18,10 @@ namespace store_back_end.api
     [AllowAnonymous]
     public class ProductController : Controller
     {
-        private StoreContext db;
-        public ProductController()
+        private StoreContext _db;
+        public ProductController(StoreContext db)
         {
-            db = new StoreContext();
+            this._db = db;
         }
 
         // product/get
@@ -31,7 +31,7 @@ namespace store_back_end.api
             try
             {
                 return await Task.Run(() =>
-                 db.Products.Include(item => item.ProductCategories)
+                 _db.Products.Include(item => item.ProductCategories)
                  .Select(product => new Products
                  {
                      Name = product.Name,
@@ -63,7 +63,7 @@ namespace store_back_end.api
             if (id <= 0)
                 return BadRequest();
 
-            var product = db.Products.Find(id);
+            var product = _db.Products.Find(id);
 
             if (product == null)
                 return BadRequest();
@@ -72,16 +72,16 @@ namespace store_back_end.api
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Productdto productdto)
+        public async Task<ActionResult> Post([FromBody] supplierdto productdto)
         {
             try
             {
                 if (productdto == null)
                     return BadRequest();
                 var Product = Mapper.Map(productdto, new Products());
-                db.Products.Add(Product);
-                db.SaveChanges();
-                productdto.productCategories = db.ProductCategories
+                _db.Products.Add(Product);
+                _db.SaveChanges();
+                productdto.productCategories = _db.ProductCategories
                 .Select(item => Mapper.Map<ProductCategories,ProductCategorydto>(item))
                 .FirstOrDefault(cat => cat.id == Product.CategoryId);
                 return await Task.Run(() => new ObjectResult(productdto));
@@ -94,16 +94,16 @@ namespace store_back_end.api
 
         // Product/put/1
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] Productdto productdto)
+        public async Task<ActionResult> Put(int id, [FromBody] supplierdto productdto)
         {
             try
             {
                 if (productdto == null || id <= 0)
                     return BadRequest();
                 productdto.Code = "";
-                var prod = db.Products.Find(id);
-                var Product = Mapper.Map<Productdto, Products>(productdto, prod);
-                db.SaveChanges();
+                var prod = _db.Products.Find(id);
+                var Product = Mapper.Map<supplierdto, Products>(productdto, prod);
+                _db.SaveChanges();
                 return await Task.Run(() => new ObjectResult(Product));
             }
             catch (Exception)
@@ -120,9 +120,9 @@ namespace store_back_end.api
             {
                 if (id <= 0)
                     return BadRequest();
-                var prod = db.Products.Find(id);
-                db.Products.Remove(prod);
-                db.SaveChanges();
+                var prod = _db.Products.Find(id);
+                _db.Products.Remove(prod);
+                _db.SaveChanges();
                 return await Task.Run(() => new ObjectResult(prod));
             }
             catch
@@ -135,7 +135,7 @@ namespace store_back_end.api
         [HttpPost(Name = "chackProductName")]
         public async Task<bool> chackProductName(string prodName)
         {
-            var productName = db.Products.FirstOrDefault(item => item.Name == prodName).Name;
+            var productName = _db.Products.FirstOrDefault(item => item.Name == prodName).Name;
             return await Task.Run(() => string.IsNullOrWhiteSpace(productName));
         }
     }

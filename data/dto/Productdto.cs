@@ -1,5 +1,5 @@
 namespace Store.data.dto { 
-    public class Productdto
+    public class supplierdto
     {
         public int id { get; set; }
 

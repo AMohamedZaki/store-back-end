@@ -16,22 +16,21 @@ namespace store_back_end.api
     [Route("[controller]/[action]")]
     [EnableCors("AllowAnyOrigin")]
     [AllowAnonymous]
-    public class CustomerController : Controller
+    public class SupplierController : Controller
     {
         private StoreContext _db;
-        public CustomerController(StoreContext db)
+        public SupplierController(StoreContext db)
         {
-            _db = db;
+            this._db = db;
         }
 
-        // Customer/get
+        // product/get
         [HttpGet]
-        public async Task<IEnumerable<Customer>> Get()
+        public async Task<IEnumerable<Suppliers>> Get()
         {
             try
             {
-                return await Task.Run(() =>
-                 _db.Customers.ToList());
+                return await Task.Run(() => _db.Suppliers.ToList());
             }
             catch (Exception ex)
             {
@@ -40,51 +39,51 @@ namespace store_back_end.api
             }
         }
 
-        // Customer/1
+        // Suppliers/1
         [HttpGet("{id}")]
         public async Task<ActionResult> getById(int id)
         {
             if (id <= 0)
                 return BadRequest();
 
-            var customer = _db.Customers.Find(id);
+            var suppliers = _db.Suppliers.Find(id);
 
-            if (customer == null)
+            if (suppliers == null)
                 return BadRequest();
 
-            return await Task.Run(() => new ObjectResult(customer));
+            return await Task.Run(() => new ObjectResult(suppliers));
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Customerdto customerdto)
+        public async Task<ActionResult> Post([FromBody] Suppliersdto supplierdto)
         {
             try
             {
-                if (customerdto == null)
+                if (supplierdto == null)
                     return BadRequest();
-                var customer = Mapper.Map(customerdto, new Customer());
-                _db.Customers.Add(customer);
+                var Supplier = Mapper.Map(supplierdto, new Suppliers());
+                _db.Suppliers.Add(Supplier);
                 _db.SaveChanges();
-                return await Task.Run(() => new ObjectResult(customer));
+                return await Task.Run(() => new ObjectResult(supplierdto));
             }
-            catch
+            catch(Exception)
             {
                 return await Task.Run(() => StatusCode(500));
             }
         }
 
-        // Customer/put/1
+        // Product/put/1
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] Customerdto customerdto)
+        public async Task<ActionResult> Put(int id, [FromBody] Suppliersdto supplierDto)
         {
             try
             {
-                if (customerdto == null || id <= 0)
+                if (supplierDto == null || id <= 0)
                     return BadRequest();
-                var customerdb = _db.Customers.Find(id);
-                var customer = Mapper.Map<Customerdto, Customer>(customerdto, customerdb);
+                var sup = _db.Suppliers.Find(id);
+                var Supplier = Mapper.Map(supplierDto, sup);
                 _db.SaveChanges();
-                return await Task.Run(() => new ObjectResult(customer));
+                return await Task.Run(() => new ObjectResult(Supplier));
             }
             catch (Exception)
             {
@@ -92,7 +91,7 @@ namespace store_back_end.api
             }
         }
 
-        // Customer/Delete/1
+        // Product/Delete/1
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -100,10 +99,10 @@ namespace store_back_end.api
             {
                 if (id <= 0)
                     return BadRequest();
-                var customerdb = _db.Customers.Find(id);
-                _db.Customers.Remove(customerdb);
+                var suppp = _db.Suppliers.Find(id);
+                _db.Suppliers.Remove(suppp);
                 _db.SaveChanges();
-                return await Task.Run(() => new ObjectResult(customerdb));
+                return await Task.Run(() => new ObjectResult(suppp));
             }
             catch
             {

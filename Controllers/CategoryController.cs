@@ -18,17 +18,17 @@ namespace store_back_end.api
     [AllowAnonymous]
     public class CategoryController : Controller
     {
-        private StoreContext db;
-        public CategoryController()
+        private StoreContext _db;
+        public CategoryController(StoreContext db)
         {
-            db = new StoreContext();
+            _db = db;
         }
 
         // Category/get
         [HttpGet]
         public async Task<IEnumerable<ProductCategories>> Get()
         {
-            return await Task.Run(() => db.ProductCategories.ToList());
+            return await Task.Run(() => _db.ProductCategories.ToList());
         }
 
         // Category/1
@@ -41,7 +41,7 @@ namespace store_back_end.api
                 if (id <= 0)
                     return BadRequest();
 
-                var category = db.ProductCategories.Find(id);
+                var category = _db.ProductCategories.Find(id);
 
                 if (category == null)
                     return BadRequest();
@@ -62,8 +62,8 @@ namespace store_back_end.api
                 if (categorydto == null)
                     return BadRequest();
                 var category = Mapper.Map(categorydto, new ProductCategories());
-                db.ProductCategories.Add(category);
-                db.SaveChanges();
+                _db.ProductCategories.Add(category);
+                _db.SaveChanges();
                 return await Task.Run(() => new ObjectResult(category));
             }
             catch
@@ -81,9 +81,9 @@ namespace store_back_end.api
                 if (categorydto == null || id <= 0)
                     return BadRequest();
 
-                var cat = db.ProductCategories.Find(id);
+                var cat = _db.ProductCategories.Find(id);
                 var category = Mapper.Map(categorydto, cat);
-                db.SaveChanges();
+                _db.SaveChanges();
                 return await Task.Run(() => new ObjectResult(category));
             }
             catch
@@ -100,9 +100,9 @@ namespace store_back_end.api
             {
                 if (id <= 0)
                     return BadRequest();
-                var cat = db.ProductCategories.Find(id);
-                db.ProductCategories.Remove(cat);
-                db.SaveChanges();
+                var cat = _db.ProductCategories.Find(id);
+                _db.ProductCategories.Remove(cat);
+                _db.SaveChanges();
                 return await Task.Run(() => new ObjectResult(cat));
             }
             catch
